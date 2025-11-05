@@ -11,10 +11,9 @@
   <a href="https://github.com/dirkarnez/js-signals-playground" target="_blank">dirkarnez/js-signals-playground</a><br>
   <div id="container"></div>
   <script>
-    const Signal = signals.Signal;
     //custom object that dispatch signals
     var myCalculator = {
-      calcuationDone : new Signal() //past tense is the recommended signal naming convention
+      calcuationDone: new signals.Signal() //past tense is the recommended signal naming convention
     };
     
     function onCalcuationDone(answer){
