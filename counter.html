@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <title>Counter with Vanilla JS</title>
@@ -36,4 +36,64 @@
       minus.addEventListener("click", handleMinus);
     </script>
   </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="./signals.min.js"></script>
+</head>
+
+<body>
+  <a href="https://github.com/dirkarnez/js-signals-playground" target="_blank">dirkarnez/js-signals-playground</a><br>
+  <div id="container">
+    <h1>Counter</h1>
+    <button id="add">+</button>
+    <span id="number"></span>
+    <button id="minus">-</button>
+  </div>
+  <script>
+    const add = document.querySelector("#add"),
+    minus = document.querySelector("#minus"),
+    number = document.querySelector("#number");
+    
+
+    //custom object that dispatch signals
+    var myCounter = {
+      count: 0,
+      inited: new signals.Signal(), //past tense is the recommended signal naming convention
+      added: new signals.Signal(), //past tense is the recommended signal naming convention
+      subtracted: new signals.Signal() //past tense is the recommended signal naming convention
+    };
+    
+      
+    const updateCount = (newCount) => {
+      myCounter.count = newCount;
+      printNumber();
+    };
+
+    const printNumber = () => {
+      number.innerText = myCounter.count;
+    };
+
+    myCounter.inited.add(updateCount);
+    myCounter.added.add(updateCount);
+    myCounter.subtracted.add(updateCount);
+    
+
+    add.addEventListener("click", () => {
+      myCounter.added.dispatch(myCounter.count + 1);
+    });
+
+    minus.addEventListener("click", () => {
+      myCounter.subtracted.dispatch(myCounter.count - 1);
+    });
+
+    myCounter.inited.dispatch(0);
+  </script>
+</body>
 </html>
